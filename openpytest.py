@@ -9,8 +9,8 @@ wb= load_workbook('test.xlsx')
 
 # C(july)-N(june) Use input month # to determine which column to input data.
 while True:
-	month=input("Input Month #(1-12): ")
-	if month > 12 or month<1:
+	month=int(input("Input Month #(1-12): "))
+	if month > 12 or month < 1:
 		error= 'Invalid Month, please input a month from 1-12'
 		str(error)
 	elif month >= 7:
@@ -38,13 +38,15 @@ while True:
 
 #Inputing Utility_Summary Code, three sheets to edit
 #Gall R&W Utility Summary, Facilities ... ..., Library ... ...
-ws= wb["Gall R&W Utility Summary"]
-name=input("Input Gas Workbook name enclosed in single quotes: ")
-wb2= load_workbook(name)
-print(wb2.sheetnames)
-ws2 = wb2["Gas Reads 2017"]
-gasInput=ws2['Q9']
-ws.cell(row=12, column=inputColumn).value= gasInput.value
+data = [wb["Gall R&W Utility Summary"],wb["Facilities Utility Summary"], wb["Library Utility Summary"]]
+print (data)
+ws= data[1]
+ws2 = wb["Gall R&W Utility Summary"]
+wb2= load_workbook('dataCompilation.xlsx')
+ws2 = wb2["Gas"]
+gasInput=ws2['C11']
+ws.columns
+#print(ws.cell(row=20, column=inputColumn).value)
 
 
 
