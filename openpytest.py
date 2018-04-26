@@ -8,7 +8,8 @@ import re
 #Correct any anomalies in the compiled data.
 #Uses openpyxl library for excel sheet manipulation
 #Uses re for easier string removal
-
+#wb2 contains the excel sheet with all data. Be sure to retain format to ensure script works
+wb2 = load_workbook('dataCompilation.xlsx')
 # C(july)-N(june) Use input month # to determine which column to input data.
 while True:
 	month=int(input("Input Month #(1-12): "))
@@ -21,52 +22,104 @@ while True:
 	else:
 		inputColumn= 3+month+5
 		break
-# #KWH Rate
-# elCap=input("Input El Cap KWH: ")
-# elCapPrice=input("Input El Cap $: ")
-# wilson=input("Input Wilson KWH: ")
-# wilsonPrice=input("Input Wilson $: ")
-# sunpower=input("Input Sunpower KWH: ")
-# sunpowerPrice=input("Input Sun $: ")
-# UCOP=input("input UCOP $: ")
-# kwhRate= (elCap+wilson+sunpower)/(elCapPrice+wilsonPrice+UCOP)
 
-# #Water Rate
-# h2oRate= input("Input Water rate: ")
 
-# #Gas Rate
-# gasRate= input("Input Gas rate: ")
-
+#KWH Rate
+dataSheet = wb2.worksheets[4]
+elCapKWH= dataSheet['B1'].value
+elCapPrice=dataSheet['B2'].value
+wilsonKWH=dataSheet['B3'].value
+wilsonPrice=dataSheet['B4'].value
+sunpowerKWH=dataSheet['B5'].value
+sunpowerPrice=dataSheet['B6'].value
+UCOP=dataSheet['B7'].value
+kwhRate= '=('+repr(elCapPrice)+'+'+repr(wilsonPrice)+'+'+repr(sunpowerPrice)+'+'+repr(UCOP)+')/('+repr(elCapKWH)+'+'+repr(wilsonKWH)+'+'+repr(sunpowerKWH)+')'
+#Water Rate
+h2oPrice=dataSheet['B8'].value
+h2oHCF=dataSheet['B9'].value
+waterRate= '='+repr(h2oPrice)+'/(' +repr(h2oHCF)+'*(748/1000))'
+#Gas Rate
+gasPrice=dataSheet['B10'].value
+gasTherms=dataSheet['B11'].value
+gasRate= '='+repr(gasPrice)+'/' +repr(gasTherms)
 
 #Inputing Utility_Summary Code, three sheets to edit
 #Gall R&W Utility Summary, Facilities ... ..., Library ... ...
 #Currently Cannot think of way to easily iterate, maybe future find a way.
 wb= load_workbook('test.xlsx')
+
+#Editing Gall R&W Summary
 editSheet = wb["Gall R&W Utility Summary"]
-wb2 = load_workbook('dataCompilation.xlsx')
+
 #Electricity Input
-# dataSheet = wb2.worksheets[0]
-# actual=dataSheet['C2'].value
-# num_actual=dataSheet['E2'].value
-# num_expected=dataSheet['F2'].value
-# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-# editSheet.cell(row=7, column=inputColumn).value=input
+dataSheet = wb2.worksheets[0]
+actual=dataSheet['C2'].value
+num_actual=dataSheet['E2'].value
+num_expected=dataSheet['F2'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=7, column=inputColumn).value=input
+editSheet.cell(row=8, column=inputColumn).value=kwhRate
 #Gas Input
 dataSheet = wb2.worksheets[1]
-actual=dataSheet['C11'].value
-actual = re.sub('cuft.', '', actual)
-print(actual)
-#editSheet.cell(row=7, column=inputColumn).value=input
-	
-#gasInput=ws2['C11']
-#print(ws.cell(row=20, column=inputColumn).value)
-#try ws = wb.worksheets[0]
+reading=dataSheet['C11'].value
+reading = re.sub('cuft.', '', reading)
+editSheet.cell(row=12, column=inputColumn).value=reading
+editSheet.cell(row=13, column=inputColumn).value=gasRate
+#CHW input
+dataSheet = wb2.worksheets[2]
+actual=dataSheet['C2'].value
+num_actual=dataSheet['E2'].value
+num_expected=dataSheet['F2'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=30, column=inputColumn).value=input
 
+#Editing Facilities Summary
+editSheet = wb["Facilities Utility Summary"]
+#Electricity Input
+dataSheet = wb2.worksheets[0]
+actual=dataSheet['C3'].value
+num_actual=dataSheet['E3'].value
+num_expected=dataSheet['F3'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=6, column=inputColumn).value=input
+editSheet.cell(row=7, column=inputColumn).value=kwhRate
+#CHW input
+dataSheet = wb2.worksheets[2]
+actual=dataSheet['C3'].value
+num_actual=dataSheet['E3'].value
+num_expected=dataSheet['F3'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=21, column=inputColumn).value=input
 
-#TODO: Find out way to compile all usage data. Maybe CSV?
-#Hard to keep track if we get data from database, bills, etc.
+#Editing Library Utility Summary
+editSheet = wb["Library Utility Summary"]
+#Electricity Input
+dataSheet = wb2.worksheets[0]
+actual=dataSheet['C4'].value
+num_actual=dataSheet['E4'].value
+num_expected=dataSheet['F4'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=6, column=inputColumn).value=input
+editSheet.cell(row=7, column=inputColumn).value=kwhRate
+#Gas Input
+dataSheet = wb2.worksheets[1]
+actual=dataSheet['C15'].value
+num_actual=dataSheet['E15'].value
+num_expected=dataSheet['F15'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=11, column=inputColumn).value=input
+editSheet.cell(row=12, column=inputColumn).value=input
+#CHW input
+dataSheet = wb2.worksheets[2]
+actual=dataSheet['C4'].value
+num_actual=dataSheet['E4'].value
+num_expected=dataSheet['F4'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=21, column=inputColumn).value=input
+
+#TODO: The other reacharge spreadsheets baby
 #Example code of inputing into specific cell  d = ws.cell(row=4, column=2, value=10)
 #Ask Gabriel to format Gas reads to be like Utility Recharges (Months in same columns)
 
 #Save Changes to chosen excel sheet
-#wb.save('test.xlsx')
+wb.save('test.xlsx')
