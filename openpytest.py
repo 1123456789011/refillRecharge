@@ -117,9 +117,33 @@ num_expected=dataSheet['F4'].value
 input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
 editSheet.cell(row=21, column=inputColumn).value=input
 
-#TODO: The other reacharge spreadsheets baby
-#Example code of inputing into specific cell  d = ws.cell(row=4, column=2, value=10)
-#Ask Gabriel to format Gas reads to be like Utility Recharges (Months in same columns)
-
 #Save Changes to chosen excel sheet
 wb.save('test.xlsx')
+
+#Housing Utility Summary Fill out
+wb= load_workbook('test2.xlsx')
+
+#Electricity Input
+dataSheet = wb2.worksheets[0]
+actual=dataSheet['C4'].value
+num_actual=dataSheet['E4'].value
+num_expected=dataSheet['F4'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=6, column=inputColumn).value=input
+editSheet.cell(row=7, column=inputColumn).value=kwhRate
+#Gas Input
+dataSheet = wb2.worksheets[1]
+actual=dataSheet['C15'].value
+num_actual=dataSheet['E15'].value
+num_expected=dataSheet['F15'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=11, column=inputColumn).value=input
+editSheet.cell(row=12, column=inputColumn).value=input
+#CHW input
+dataSheet = wb2.worksheets[2]
+actual=dataSheet['C4'].value
+num_actual=dataSheet['E4'].value
+num_expected=dataSheet['F4'].value
+input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+editSheet.cell(row=21, column=inputColumn).value=input
+
