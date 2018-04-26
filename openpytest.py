@@ -46,104 +46,106 @@ gasRate= '='+repr(gasPrice)+'/' +repr(gasTherms)
 #Inputing Utility_Summary Code, three sheets to edit
 #Gall R&W Utility Summary, Facilities ... ..., Library ... ...
 #Currently Cannot think of way to easily iterate, maybe future find a way.
-wb= load_workbook('test.xlsx')
+# wb= load_workbook('test.xlsx')
 
-#Editing Gall R&W Summary
-editSheet = wb["Gall R&W Utility Summary"]
+# #Editing Gall R&W Summary
+# editSheet = wb["Gall R&W Utility Summary"]
 
-#Electricity Input
-dataSheet = wb2.worksheets[0]
-actual=dataSheet['C2'].value
-num_actual=dataSheet['E2'].value
-num_expected=dataSheet['F2'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=7, column=inputColumn).value=input
-editSheet.cell(row=8, column=inputColumn).value=kwhRate
-#Gas Input
-dataSheet = wb2.worksheets[1]
-reading=dataSheet['C11'].value
-reading = re.sub('cuft.', '', reading)
-editSheet.cell(row=12, column=inputColumn).value=reading
-editSheet.cell(row=13, column=inputColumn).value=gasRate
-#CHW input
-dataSheet = wb2.worksheets[2]
-actual=dataSheet['C2'].value
-num_actual=dataSheet['E2'].value
-num_expected=dataSheet['F2'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=30, column=inputColumn).value=input
+# #Electricity Input
+# dataSheet = wb2.worksheets[0]
+# actual=dataSheet['C2'].value
+# num_actual=dataSheet['E2'].value
+# num_expected=dataSheet['F2'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=7, column=inputColumn).value=input
+# editSheet.cell(row=5, column=inputColumn).value=kwhRate
+# #Gas Input
+# dataSheet = wb2.worksheets[1]
+# reading=dataSheet['C11'].value
+# reading = re.sub('cuft.', '', reading)
+# editSheet.cell(row=12, column=inputColumn).value=reading
+# editSheet.cell(row=13, column=inputColumn).value=gasRate
+# #CHW input
+# dataSheet = wb2.worksheets[2]
+# actual=dataSheet['C2'].value
+# num_actual=dataSheet['E2'].value
+# num_expected=dataSheet['F2'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=30, column=inputColumn).value=input
 
-#Editing Facilities Summary
-editSheet = wb["Facilities Utility Summary"]
-#Electricity Input
-dataSheet = wb2.worksheets[0]
-actual=dataSheet['C3'].value
-num_actual=dataSheet['E3'].value
-num_expected=dataSheet['F3'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=6, column=inputColumn).value=input
-editSheet.cell(row=7, column=inputColumn).value=kwhRate
-#CHW input
-dataSheet = wb2.worksheets[2]
-actual=dataSheet['C3'].value
-num_actual=dataSheet['E3'].value
-num_expected=dataSheet['F3'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=21, column=inputColumn).value=input
+# #Editing Facilities Summary
+# editSheet = wb["Facilities Utility Summary"]
+# #Electricity Input
+# dataSheet = wb2.worksheets[0]
+# actual=dataSheet['C3'].value
+# num_actual=dataSheet['E3'].value
+# num_expected=dataSheet['F3'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=6, column=inputColumn).value=input
+# editSheet.cell(row=7, column=inputColumn).value=kwhRate
+# #CHW input
+# dataSheet = wb2.worksheets[2]
+# actual=dataSheet['C3'].value
+# num_actual=dataSheet['E3'].value
+# num_expected=dataSheet['F3'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=21, column=inputColumn).value=input
 
-#Editing Library Utility Summary
-editSheet = wb["Library Utility Summary"]
-#Electricity Input
-dataSheet = wb2.worksheets[0]
-actual=dataSheet['C4'].value
-num_actual=dataSheet['E4'].value
-num_expected=dataSheet['F4'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=6, column=inputColumn).value=input
-editSheet.cell(row=7, column=inputColumn).value=kwhRate
-#Gas Input
-dataSheet = wb2.worksheets[1]
-actual=dataSheet['C15'].value
-num_actual=dataSheet['E15'].value
-num_expected=dataSheet['F15'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=11, column=inputColumn).value=input
-editSheet.cell(row=12, column=inputColumn).value=input
-#CHW input
-dataSheet = wb2.worksheets[2]
-actual=dataSheet['C4'].value
-num_actual=dataSheet['E4'].value
-num_expected=dataSheet['F4'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=21, column=inputColumn).value=input
+# #Editing Library Utility Summary
+# editSheet = wb["Library Utility Summary"]
+# #Electricity Input
+# dataSheet = wb2.worksheets[0]
+# actual=dataSheet['C4'].value
+# num_actual=dataSheet['E4'].value
+# num_expected=dataSheet['F4'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=6, column=inputColumn).value=input
+# editSheet.cell(row=7, column=inputColumn).value=kwhRate
+# #Gas Input
+# dataSheet = wb2.worksheets[1]
+# actual=dataSheet['C15'].value
+# num_actual=dataSheet['E15'].value
+# num_expected=dataSheet['F15'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=11, column=inputColumn).value=input
+# editSheet.cell(row=12, column=inputColumn).value=input
+# #CHW input
+# dataSheet = wb2.worksheets[2]
+# actual=dataSheet['C4'].value
+# num_actual=dataSheet['E4'].value
+# num_expected=dataSheet['F4'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=21, column=inputColumn).value=input
 
-#Save Changes to chosen excel sheet
-wb.save('test.xlsx')
+# #Save Changes to chosen excel sheet
+# wb.save('test.xlsx')
 
 #Housing Utility Summary Fill out
-wb= load_workbook('test2.xlsx')
-
+wb= load_workbook('test2b.xlsx')
 #Electricity Input
+editSheet = wb["Electricity"]
 dataSheet = wb2.worksheets[0]
-actual=dataSheet['C4'].value
-num_actual=dataSheet['E4'].value
-num_expected=dataSheet['F4'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=6, column=inputColumn).value=input
+for i in range(1,15):
+	actual=dataSheet.cell(row=i+6, column=3).value
+	num_actual=dataSheet.cell(row=i+6, column=4).value
+	num_expected=dataSheet.cell(row=i+6, column=5).value
+	input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+	editSheet.cell(row=3+i*3, column=inputColumn).value=input
 editSheet.cell(row=7, column=inputColumn).value=kwhRate
-#Gas Input
-dataSheet = wb2.worksheets[1]
-actual=dataSheet['C15'].value
-num_actual=dataSheet['E15'].value
-num_expected=dataSheet['F15'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=11, column=inputColumn).value=input
-editSheet.cell(row=12, column=inputColumn).value=input
-#CHW input
-dataSheet = wb2.worksheets[2]
-actual=dataSheet['C4'].value
-num_actual=dataSheet['E4'].value
-num_expected=dataSheet['F4'].value
-input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-editSheet.cell(row=21, column=inputColumn).value=input
+# #Gas Input
+# dataSheet = wb2.worksheets[1]
+# actual=dataSheet['C15'].value
+# num_actual=dataSheet['E15'].value
+# num_expected=dataSheet['F15'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=11, column=inputColumn).value=input
+# editSheet.cell(row=12, column=inputColumn).value=input
+# #CHW input
+# dataSheet = wb2.worksheets[2]
+# actual=dataSheet['C4'].value
+# num_actual=dataSheet['E4'].value
+# num_expected=dataSheet['F4'].value
+# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+# editSheet.cell(row=21, column=inputColumn).value=input
+wb.save('test2b.xlsx')
 
