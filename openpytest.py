@@ -47,7 +47,7 @@ ws2 = wb2["Gas"]
 gasInput=ws2['C11']
 ws.columns
 #print(ws.cell(row=20, column=inputColumn).value)
-
+#try ws = wb.worksheets[0]
 
 
 #TODO: Find out way to compile all usage data. Maybe CSV?
