@@ -23,7 +23,11 @@ while True:
 		inputColumn= 3+month+5
 		break
 
-
+def grab_values(cell_actual, cell_numAct, cell_numExp):
+	actual=dataSheet[cell_actual].value
+	num_actual=dataSheet[cell_numAct].value
+	num_expected=dataSheet[cell_numExp].value
+	return actual, num_actual, num_expected
 #KWH Rate
 dataSheet = wb2.worksheets[4]
 elCapKWH= dataSheet['B1'].value
@@ -44,7 +48,6 @@ gasTherms=dataSheet['B11'].value
 gasRate= '='+repr(gasPrice)+'/' +repr(gasTherms)
 
 #Inputing Utility_Summary Code, three sheets to edit
-#Gall R&W Utility Summary, Facilities ... ..., Library ... ...
 #Currently Cannot think of way to easily iterate, maybe future find a way.
 # wb= load_workbook('test.xlsx')
 
@@ -77,17 +80,13 @@ gasRate= '='+repr(gasPrice)+'/' +repr(gasTherms)
 # editSheet = wb["Facilities Utility Summary"]
 # #Electricity Input
 # dataSheet = wb2.worksheets[0]
-# actual=dataSheet['C3'].value
-# num_actual=dataSheet['E3'].value
-# num_expected=dataSheet['F3'].value
+# actual, num_actual, num_expected = grab_values('C3','E3','F3')
 # input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
 # editSheet.cell(row=6, column=inputColumn).value=input
 # editSheet.cell(row=7, column=inputColumn).value=kwhRate
 # #CHW input
 # dataSheet = wb2.worksheets[2]
-# actual=dataSheet['C3'].value
-# num_actual=dataSheet['E3'].value
-# num_expected=dataSheet['F3'].value
+# actual, num_actual, num_expected = grab_values('C3','E3','F3')
 # input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
 # editSheet.cell(row=21, column=inputColumn).value=input
 
@@ -95,57 +94,90 @@ gasRate= '='+repr(gasPrice)+'/' +repr(gasTherms)
 # editSheet = wb["Library Utility Summary"]
 # #Electricity Input
 # dataSheet = wb2.worksheets[0]
-# actual=dataSheet['C4'].value
-# num_actual=dataSheet['E4'].value
-# num_expected=dataSheet['F4'].value
+# actual, num_actual, num_expected = grab_values('C4','E4','F4')
 # input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
 # editSheet.cell(row=6, column=inputColumn).value=input
 # editSheet.cell(row=7, column=inputColumn).value=kwhRate
 # #Gas Input
 # dataSheet = wb2.worksheets[1]
-# actual=dataSheet['C15'].value
-# num_actual=dataSheet['E15'].value
-# num_expected=dataSheet['F15'].value
+# actual, num_actual, num_expected = grab_values('C15','E15','F15')
 # input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
 # editSheet.cell(row=11, column=inputColumn).value=input
-# editSheet.cell(row=12, column=inputColumn).value=input
+# editSheet.cell(row=12, column=inputColumn).value=gasRate
 # #CHW input
 # dataSheet = wb2.worksheets[2]
-# actual=dataSheet['C4'].value
-# num_actual=dataSheet['E4'].value
-# num_expected=dataSheet['F4'].value
+# actual, num_actual, num_expected = grab_values('C4','E4','F4')
 # input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
 # editSheet.cell(row=21, column=inputColumn).value=input
 
 # #Save Changes to chosen excel sheet
 # wb.save('test.xlsx')
 
-#Housing Utility Summary Fill out
-wb= load_workbook('test2b.xlsx')
+# #Housing Utility Summary Fill out
+# wb= load_workbook('test2b.xlsx')
+# #Electricity Input
+# editSheet = wb["Electricity"]
+# dataSheet = wb2.worksheets[0]
+# editSheet.cell(row=5, column=inputColumn).value=kwhRate
+# for i in range(1,6):
+	# actual=dataSheet.cell(row=i+6, column=3).value
+	# num_actual=dataSheet.cell(row=i+6, column=5).value
+	# num_expected=dataSheet.cell(row=i+6, column=6).value
+	# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+	# editSheet.cell(row=3+i*3, column=inputColumn).value=input
+# actual=dataSheet.cell(row=12, column=3).value
+# editSheet.cell(row=21, column=inputColumn).value=actual
+# for i in range(7,15):
+	# actual=dataSheet.cell(row=i+6, column=3).value
+	# num_actual=dataSheet.cell(row=i+6, column=5).value
+	# num_expected=dataSheet.cell(row=i+6, column=6).value
+	# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+	# editSheet.cell(row=4+i*3, column=inputColumn).value=input
+
+# #Gas Input
+# editSheet = wb["Gas"]
+# dataSheet = wb2.worksheets[1]
+# editSheet.cell(row=5, column=inputColumn).value=gasRate
+# #Dining
+# reading= dataSheet['C6'].value
+# reading = re.sub('cuft.', '', reading)
+# editSheet.cell(row=7, column=inputColumn).value=reading
+# #Laundry
+# reading= dataSheet['C7'].value
+# reading = re.sub('cuft.', '', reading)
+# editSheet.cell(row=11, column=inputColumn).value=reading
+# #Sierra Terraces
+# reading= dataSheet['C10'].value
+# reading = re.sub('cuft.', '', reading)
+# editSheet.cell(row=15, column=inputColumn).value=reading
+# #Tenaya
+# reading= dataSheet['C4'].value
+# reading = re.sub('cuft.', '', reading)
+# editSheet.cell(row=20, column=inputColumn).value=reading
+# #Cathedral
+# reading= dataSheet['C3'].value
+# reading = re.sub('cuft.', '', reading)
+# editSheet.cell(row=25, column=inputColumn).value=reading
+# #Half Dome
+# reading= dataSheet['C5'].value
+# reading = re.sub('cuft.', '', reading)
+# editSheet.cell(row=30, column=inputColumn).value=reading
+
+# #CHW input
+# editSheet = wb["Chilled Water"]
+# dataSheet = wb2.worksheets[2]
+# for i in range(1,15):
+	# actual=dataSheet.cell(row=i+5, column=3).value
+	# num_actual=dataSheet.cell(row=i+5, column=5).value
+	# num_expected=dataSheet.cell(row=i+5, column=6).value
+	# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
+	# editSheet.cell(row=3+i*3, column=inputColumn).value=input
+# wb.save('test2b.xlsx')
+
+#Dining Utility Summary Fill out
+wb= load_workbook('test3b.xlsx')
 #Electricity Input
 editSheet = wb["Electricity"]
 dataSheet = wb2.worksheets[0]
-for i in range(1,15):
-	actual=dataSheet.cell(row=i+6, column=3).value
-	num_actual=dataSheet.cell(row=i+6, column=4).value
-	num_expected=dataSheet.cell(row=i+6, column=5).value
-	input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-	editSheet.cell(row=3+i*3, column=inputColumn).value=input
-editSheet.cell(row=7, column=inputColumn).value=kwhRate
-# #Gas Input
-# dataSheet = wb2.worksheets[1]
-# actual=dataSheet['C15'].value
-# num_actual=dataSheet['E15'].value
-# num_expected=dataSheet['F15'].value
-# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-# editSheet.cell(row=11, column=inputColumn).value=input
-# editSheet.cell(row=12, column=inputColumn).value=input
-# #CHW input
-# dataSheet = wb2.worksheets[2]
-# actual=dataSheet['C4'].value
-# num_actual=dataSheet['E4'].value
-# num_expected=dataSheet['F4'].value
-# input= 	'='+repr(actual)+'/('+repr(num_actual)+'/'+repr(num_expected)+')'
-# editSheet.cell(row=21, column=inputColumn).value=input
-wb.save('test2b.xlsx')
 
+wb.save('test3b.xlsx')
