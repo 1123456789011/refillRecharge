@@ -2,20 +2,18 @@
 This code automates recharges using the openpyxl library. The script takes data
 from a compiled utility data excel sheet and inserts them into the recharge excel
 sheets. The script takes the data from specific locations, so the data and the
-recharge sheets need to stay in a consistent format, or data will be cell_input improperly.
+recharge sheets need to stay in a consistent format, or data will be input improperly.
 See dataCompilation.xlsx for formating example.
 
 Usage:
     Gets data from a data compilation excel sheet to store into Utility Recharges,
-    Dining Utility Recharges, and Housing Recharges excel sheets. To change which
-    to cell_input and output, go to individual methods and change the name of cell_input and
-    where it is saved.
+    Dining Utility Recharges, and Housing Recharges excel sheets.
+	To change location to store data, go to main method to change file names.
     Be sure to check data compilation for correct data before using the script.
 TODO:
     1)Improve Documentation
     2)Implement more dynamic method of grabbing data so changing order of data
-    won't matter anymore(Check row by name)
-    3)Make it more convenient to change name of excel sheets being edited
+    won't matter anymore(Check row by name maybe?)
 """
 import re
 from openpyxl import load_workbook
@@ -88,7 +86,7 @@ def get_columns():
             error = 'Invalid Month, please cell_input a month from 1-12'
             str(error)
         elif month >= 7:
-            input_column = 3+(month-7)
+            input_column = 3 + (month-7)
             break
         else:
             input_column = 3 + month + 5
@@ -331,47 +329,47 @@ def fill_housing(housing_name, input_column, kwh_rate, water_rate, gas_rate):
 
     #Terrace Center Commons
     reading = data_sheet['C68'].value+data_sheet['C69'].value-data_sheet['D68'].value-data_sheet['D69'].value
-    edit_sheet.cell(row=8, column=input_column).value = reading
+    edit_sheet.cell(row=7, column=input_column).value = reading
 
     #Kern
     reading = data_sheet['C32'].value+data_sheet['C33'].value-data_sheet['D32'].value-data_sheet['D33'].value
-    edit_sheet.cell(row=12, column=input_column).value = reading
+    edit_sheet.cell(row=10, column=input_column).value = reading
 
     #Tulare
     reading = data_sheet['C70'].value+data_sheet['C71'].value-data_sheet['D70'].value-data_sheet['D71'].value
-    edit_sheet.cell(row=16, column=input_column).value = reading
+    edit_sheet.cell(row=13, column=input_column).value = reading
 
-    #Madera+Fresno+Stan+Kings
+    #Madera+Kings+Fresno+Stan
     reading = data_sheet['C57'].value+data_sheet['C58'].value-data_sheet['D57'].value-data_sheet['D58'].value
     reading = reading/4
     for i in range(1, 5):
-        edit_sheet.cell(row=15+i*4, column=input_column).value = reading
+        edit_sheet.cell(row=13+i*3, column=input_column).value = reading
 
     #San Joaquin
     reading = data_sheet['C46'].value+data_sheet['C47'].value-data_sheet['D46'].value-data_sheet['D47'].value
-    edit_sheet.cell(row=35, column=input_column).value = reading
+    edit_sheet.cell(row=28, column=input_column).value = reading
 
     #Merced+Calaveras
     reading = data_sheet['C4'].value+data_sheet['C5'].value-data_sheet['D4'].value-data_sheet['D5'].value
     reading = reading/2
-    edit_sheet.cell(row=38, column=input_column).value = reading
-    edit_sheet.cell(row=41, column=input_column).value = reading
+    edit_sheet.cell(row=31, column=input_column).value = reading
+    edit_sheet.cell(row=34, column=input_column).value = reading
 
     #Sierra Terraces
     reading = data_sheet['C72'].value+data_sheet['C73'].value-data_sheet['D72'].value-data_sheet['D73'].value
-    edit_sheet.cell(row=44, column=input_column).value = reading
+    edit_sheet.cell(row=37, column=input_column).value = reading
 
     #Tenaya
     reading = data_sheet['C66'].value+data_sheet['C67'].value-data_sheet['D66'].value-data_sheet['D67'].value
-    edit_sheet.cell(row=47, column=input_column).value = reading
+    edit_sheet.cell(row=40, column=input_column).value = reading
 
     #Cathedral
     reading = data_sheet['C10'].value+data_sheet['C11'].value-data_sheet['D10'].value-data_sheet['D11'].value
-    edit_sheet.cell(row=50, column=input_column).value = reading
+    edit_sheet.cell(row=43, column=input_column).value = reading
 
     #Half Dome
     reading = data_sheet['C28'].value+data_sheet['C29'].value-data_sheet['D28'].value-data_sheet['D29'].value
-    edit_sheet.cell(row=53, column=input_column).value = reading
+    edit_sheet.cell(row=46, column=input_column).value = reading
 
     #CHW cell_input
     edit_sheet = workbook["Chilled Water"]
@@ -391,9 +389,9 @@ def main():
     fill method order doesn't matter. Change the names of the excel sheets to
     be edited here, in single quotes full filename(e.g 'test1.xlsx')
     """
-    utility_name = 'test1.xlsx'
-    dining_name = 'test2.xlsx'
-    housing_name = 'test3.xlsx'
+    utility_name = '05-2018_Utility_Summary.xlsx'
+    dining_name = '05-2018_Dining_Utility_Summary.xlsx'
+    housing_name = '05-2018_Housing_Utility_Summary.xlsx'
     input_column = get_columns()
     kwh_rate, water_rate, gas_rate = calc_rates()
     fill_utility(utility_name, input_column, kwh_rate, water_rate, gas_rate)
